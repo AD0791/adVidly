@@ -18,6 +18,7 @@ app.get("/api/genres/:id", (req, res) => {});
 // Put
 app.put("/api/genres/:id", (req, res) => {});
 
+// delete
 app.delete("/api/genres/:id", (req, res) => {});
 
 // validation function
