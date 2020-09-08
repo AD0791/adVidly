@@ -1,12 +1,14 @@
 const express = require("express");
 const app = express();
 const Joi = require("joi");
+const logger = require("./middlewares/logger");
 // middleware
 app.use(express.json());
-
+// custom middleware
+app.use(logger);
 // get (middleware)
 app.get("/api/genres", (req, res) => {
-  res.send(data.api);
+  res.send("Holla bb");
 });
 
 // post
