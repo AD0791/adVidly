@@ -4,7 +4,7 @@ const Joi = require("joi");
 // middleware
 app.use(express.json());
 
-// get
+// get (middleware)
 app.get("/api/genres", (req, res) => {
   res.send(data.api);
 });
