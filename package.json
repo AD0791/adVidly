@@ -18,7 +18,9 @@
   "homepage": "https://github.com/AD0791/adVidly#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "helmet": "^4.1.1",
     "joi": "^17.2.1",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.4"
   }
 }

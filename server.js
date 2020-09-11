@@ -1,11 +1,23 @@
+const morgan = require("morgan");
+const helmet = require("helmet");
 const express = require("express");
 const app = express();
 const Joi = require("joi");
 const logger = require("./middlewares/logger");
 // middleware
 app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+app.use(express.static("public"));
+// third party middleware
+app.use(helmet());
+app.use(morgan('tiny'));
 // custom middleware
 app.use(logger);
+
 // get (middleware)
 app.get("/api/genres", (req, res) => {
   res.send("Holla bb");
