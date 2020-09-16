@@ -4,14 +4,26 @@ const express = require("express");
 const app = express();
 const Joi = require("joi");
 const logger = require("./middlewares/logger");
+const config = require('config');
 // get the env and use it
 env = app.get('env')
-console.log(`env: ${ env }`)
+console.log(`env: ${env}`)
+
+//console.log(`env: ${ process.env.NODE_ENV}`)
+// > env: undifined b default
 
 if (env === 'development') {
   app.use(morgan('tiny'));
   console.log('morgan is here')
 }
+
+// environment ink to config
+console.log(`Application name: ${config.get('name')}`)
+console.log(`Application mail server: ${config.get('mail.host')}`)
+
+
+
+
 // middleware
 app.use(express.json());
 app.use(
@@ -26,7 +38,7 @@ app.use(helmet());
 // custom middleware
 app.use(logger);
 
-// get (middleware)
+// get (is a middleware)
 app.get("/api/genres", (req, res) => {
   res.send("Holla bb");
 });
