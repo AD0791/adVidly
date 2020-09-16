@@ -4,6 +4,14 @@ const express = require("express");
 const app = express();
 const Joi = require("joi");
 const logger = require("./middlewares/logger");
+// get the env and use it
+env = app.get('env')
+console.log(`env: ${ env }`)
+
+if (env === 'development') {
+  app.use(morgan('tiny'));
+  console.log('morgan is here')
+}
 // middleware
 app.use(express.json());
 app.use(
@@ -14,7 +22,7 @@ app.use(
 app.use(express.static("public"));
 // third party middleware
 app.use(helmet());
-app.use(morgan('tiny'));
+
 // custom middleware
 app.use(logger);
 
