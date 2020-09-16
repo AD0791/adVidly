@@ -20,6 +20,7 @@ if (env === 'development') {
 // environment ink to config
 console.log(`Application name: ${config.get('name')}`)
 console.log(`Application mail server: ${config.get('mail.host')}`)
+console.log(`Mail password: ${config.get('mail.password')}`)
 
 
 
