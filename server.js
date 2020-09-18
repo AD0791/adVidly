@@ -5,22 +5,32 @@ const app = express();
 const Joi = require("joi");
 const logger = require("./middlewares/logger");
 const config = require('config');
+// debug
+const startupDebugger = require('debug')('app:start');
+const dbDebugger = require('debug')('app:db');
+const getEnv = require('debug')('app:env');
+const getAppName = require('debug')('app:name');
+const getAppMailServer = require('debug')('app:mailServer')
+//const getAppMailPassword = require('debug')('app:mailPassword')
+const getPort = require('debug')('app:port')
 // get the env and use it
 env = app.get('env')
-console.log(`env: ${env}`)
-
+getEnv(`env: ${env}`)
 //console.log(`env: ${ process.env.NODE_ENV}`)
 // > env: undifined b default
 
 if (env === 'development') {
   app.use(morgan('tiny'));
-  console.log('morgan is here')
+  startupDebugger('morgan is here')
 }
 
+// if db situation
+dbDebugger('db start')
+
 // environment ink to config
-console.log(`Application name: ${config.get('name')}`)
-console.log(`Application mail server: ${config.get('mail.host')}`)
-console.log(`Mail password: ${config.get('mail.password')}`)
+getAppName(`Application name: ${config.get('name')}`)
+getAppMailServer(`Application mail server: ${config.get('mail.host')}`)
+//getAppMailPassword(`Mail password: ${config.get('mail.password')}`)
 
 
 
@@ -66,5 +76,5 @@ function validationP(params) {
 // terminal: $export PORT=5000
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
-  console.log(`Port is open ${port}`);
+  getPort(`Port is open ${port}`);
 });
