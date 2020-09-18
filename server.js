@@ -32,9 +32,6 @@ getAppName(`Application name: ${config.get('name')}`)
 getAppMailServer(`Application mail server: ${config.get('mail.host')}`)
 //getAppMailPassword(`Mail password: ${config.get('mail.password')}`)
 
-
-
-
 // middleware
 app.use(express.json());
 app.use(
@@ -49,6 +46,25 @@ app.use(helmet());
 // custom middleware
 app.use(logger);
 
+
+// templating engine
+app.set('view engine', 'pug');
+// the default values is ./views
+// we can set it if we want
+app.set('views', './components')
+
+
+app.get("/", (req, res) => {
+  res.render('index', {
+    title: 'Built with pug',
+    message: 'Hello puggy'
+  });
+});
+
+
+
+
+// enpoints
 // get (is a middleware)
 app.get("/api/genres", (req, res) => {
   res.send("Holla bb");
