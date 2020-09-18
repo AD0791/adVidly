@@ -2,9 +2,13 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const express = require("express");
 const app = express();
-const Joi = require("joi");
 const logger = require("./middlewares/logger");
 const config = require('config');
+// routes / api
+const genres = require('./routes/genres')
+// home
+const home = require('./routes/home');
+
 // debug
 const startupDebugger = require('debug')('app:start');
 const dbDebugger = require('debug')('app:db');
@@ -47,6 +51,13 @@ app.use(helmet());
 app.use(logger);
 
 
+// api routes
+app.use('/api/genres', genres)
+
+
+
+// home routes
+
 // templating engine
 app.set('view engine', 'pug');
 // the default values is ./views
@@ -54,39 +65,10 @@ app.set('view engine', 'pug');
 app.set('views', './components')
 
 
-app.get("/", (req, res) => {
-  res.render('index', {
-    title: 'Built with pug',
-    message: 'Hello puggy'
-  });
-});
+app.use('/', home)
 
 
 
-
-// enpoints
-// get (is a middleware)
-app.get("/api/genres", (req, res) => {
-  res.send("Holla bb");
-});
-
-// post
-app.post("/api/genres", (req, res) => {});
-
-// get one element by id
-app.get("/api/genres/:id", (req, res) => {});
-
-// Put
-app.put("/api/genres/:id", (req, res) => {});
-
-// delete
-app.delete("/api/genres/:id", (req, res) => {});
-
-// validation function
-function validationP(params) {
-  const schema = Joi.object({});
-  return schema.validate(params);
-}
 
 // env variables
 // terminal: $export PORT=5000
